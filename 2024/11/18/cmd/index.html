@@ -21,9 +21,9 @@
   </script>
 
   <meta name="description" content="删除除当前分支外的所有本地分支  1git branch | grep -v &quot;^\*&quot; | xargs git branch -D   clone指定tag的代码  1git clone --branch v1.0.0 url   创建会话  123456789101112131415161718192021222324252627var params &#x3D; &#123;">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="常用命令">
-<meta property="og:url" content="http://example.com/articles/cmd.html">
+<meta property="og:url" content="http://example.com/2024/11/18/cmd/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="删除除当前分支外的所有本地分支  1git branch | grep -v &quot;^\*&quot; | xargs git branch -D   clone指定tag的代码  1git clone --branch v1.0.0 url   创建会话  123456789101112131415161718192021222324252627var params &#x3D; &#123;">
 <meta property="og:locale" content="en_US">
@@ -32,7 +32,7 @@
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/articles/cmd">
+<link rel="canonical" href="http://example.com/2024/11/18/cmd/">
 
 
 <script id="page-configurations">
@@ -40,13 +40,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>常用命令 | Hexo
-</title>
+  <title>常用命令 | Hexo</title>
   
 
 
@@ -143,33 +142,53 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="en">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">常用命令
-</h1>
-
-<div class="post-meta">
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/11/18/cmd/">
 
-</div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
 
-</header>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常用命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-11-18 10:40:36 / Modified: 10:41:30" itemprop="dateCreated datePublished" datetime="2024-11-18T10:40:36+08:00">2024-11-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <blockquote>
+        <blockquote>
 <p>删除除当前分支外的所有本地分支</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch | grep -v <span class="string">&quot;^\*&quot;</span> | xargs git branch -D</span><br></pre></td></tr></table></figure>
@@ -183,16 +202,25 @@
 <p>创建会话</p>
 </blockquote>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> params = &#123;</span><br><span class="line">    <span class="string">&quot;bizType&quot;</span>:<span class="string">&quot;TMXY_CONTENT_KF&quot;</span>,</span><br><span class="line">    <span class="string">&quot;receiverId&quot;</span>:<span class="string">&quot;2&quot;</span>,</span><br><span class="line">    <span class="string">&quot;extension&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;shopId&quot;</span>:<span class="string">&quot;2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;outShopId&quot;</span>:<span class="string">&quot;10131&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> params = &#123;</span><br><span class="line">    <span class="string">&quot;bizType&quot;</span>:<span class="string">&quot;TMXY_CONTENT_KF&quot;</span>,</span><br><span class="line">    <span class="string">&quot;receiverId&quot;</span>:<span class="string">&quot;1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;extension&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;shopId&quot;</span>:<span class="string">&quot;1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;outShopId&quot;</span>:<span class="string">&quot;10104&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">WindVane</span>.<span class="title function_">call</span>(<span class="string">&#x27;MessageJsBridge&#x27;</span>,<span class="string">&#x27;createConversation&#x27;</span>,params,<span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;success: &#x27;</span>+<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(e));</span><br><span class="line">&#125;,<span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&#x27;failure: &#x27;</span>+<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(e));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;UNVARNISHED_TRANSMISSION&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="comment">// 这里要注意，Native 传递过来的事件参数是在 data 的 param 属性中。</span></span><br><span class="line">    <span class="title function_">alert</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data.<span class="property">param</span>));</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-      </div>
-      
-      
-      
     </div>
-    
 
     
     
     
+
+      <footer class="post-footer">
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
 
 
           </div>
