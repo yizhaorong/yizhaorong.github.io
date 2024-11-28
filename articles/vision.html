@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Vision突出展示人像方案调研在帖子列表图片裁剪的时候保证人脸的居中 iOS 的 vision framework 可以提供类似的能力 引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vision方案调研">
+<meta property="og:url" content="http://example.com/articles/vision.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Vision突出展示人像方案调研在帖子列表图片裁剪的时候保证人脸的居中 iOS 的 vision framework 可以提供类似的能力 引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image-20241126172930223.png">
+<meta property="article:published_time" content="2024-11-26T07:41:44.000Z">
+<meta property="article:modified_time" content="2024-11-26T09:39:02.966Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image-20241126172930223.png">
+
+<link rel="canonical" href="http://example.com/articles/vision">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Vision方案调研 | Hexo
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="en">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Vision方案调研
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="Vision突出展示人像方案调研"><a href="#Vision突出展示人像方案调研" class="headerlink" title="Vision突出展示人像方案调研"></a>Vision突出展示人像方案调研</h1><p>在帖子列表图片裁剪的时候保证人脸的居中</p>
+<p>iOS 的 vision framework 可以提供类似的能力</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><ul>
+<li><p><strong>背景介绍</strong></p>
+<p>当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。</p>
+</li>
+<li><p><strong>目标</strong></p>
+<p>利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人物重点。</p>
+</li>
+</ul>
+<h2 id="Vision-Framework"><a href="#Vision-Framework" class="headerlink" title="Vision Framework"></a>Vision Framework</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Vision Framework是苹果在iOS 11中首次推出用于图像分析和计算机视觉任务的框架。它为开发者提供了在应用中轻松实现各种图像处理功能，如人脸检测、文本识别、物体识别、图像分类、条码扫描等。</p>
+<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><p><img src="/image-20241126172930223.png" alt="image-20241126172930223"></p>
+<h4 id="3-功能详解"><a href="#3-功能详解" class="headerlink" title="3. 功能详解"></a>3. 功能详解</h4><ul>
+<li><strong>3.1 图像处理和分析</strong><ul>
+<li>3.1.1 物体检测<ul>
+<li>描述物体检测的能力和应用场景。</li>
+</ul>
+</li>
+<li>3.1.2 文字识别（OCR）<ul>
+<li>文字检测与识别功能的详细说明。</li>
+</ul>
+</li>
+<li>3.1.3 面部检测和识别<ul>
+<li>面部检测技术的功能和限制。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>3.2 动作识别</strong><ul>
+<li>描述动作识别及其应用，特别是在视频中的使用。</li>
+</ul>
+</li>
+<li><strong>3.3 图像注册和跟踪</strong><ul>
+<li>介绍图像注册功能，视觉跟踪的技术细节及使用场景。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-案例分析"><a href="#4-案例分析" class="headerlink" title="4. 案例分析"></a>4. 案例分析</h4><ul>
+<li><strong>4.1 成功案例</strong><ul>
+<li>提供一些使用Vision Framework的成功案例。</li>
+</ul>
+</li>
+<li><strong>4.2 实际应用场景</strong><ul>
+<li>描述潜在或现有应用场景，行业应用等。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-技术优势"><a href="#5-技术优势" class="headerlink" title="5. 技术优势"></a>5. 技术优势</h4><ul>
+<li><strong>5.1 易用性</strong><ul>
+<li>在集成和使用方面的友好程度。</li>
+</ul>
+</li>
+<li><strong>5.2 效率和速度</strong><ul>
+<li>框架在处理速度和效率方面的表现。</li>
+</ul>
+</li>
+<li><strong>5.3 准确性与可靠性</strong><ul>
+<li>结果的准确性和在不同环境下的可靠性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-限制与挑战"><a href="#6-限制与挑战" class="headerlink" title="6. 限制与挑战"></a>6. 限制与挑战</h4><ul>
+<li><strong>6.1 当前限制</strong><ul>
+<li>介绍框架目前的技术和应用限制。</li>
+</ul>
+</li>
+<li><strong>6.2 未来挑战</strong><ul>
+<li>讨论Vision Framework未来可能面临的挑战。</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-总结与建议"><a href="#7-总结与建议" class="headerlink" title="7. 总结与建议"></a>7. 总结与建议</h4><ul>
+<li><strong>7.1 总结</strong><ul>
+<li>对调研发现进行总结。</li>
+</ul>
+</li>
+<li><strong>7.2 建议</strong><ul>
+<li>对于开发者、设计人员和决策者的建议。</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-参考文献"><a href="#8-参考文献" class="headerlink" title="8. 参考文献"></a>8. 参考文献</h4><ul>
+<li>提供所有相关的参考文献及资源。</li>
+</ul>
+<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><ul>
+<li>包括相关的附加资料或详细信息。</li>
+</ul>
+<p>这个大纲可以帮助你系统化地呈现Vision Framework的功能，确保报告涵盖必要的技术细节、优势及应用场景。</p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision%E7%AA%81%E5%87%BA%E5%B1%95%E7%A4%BA%E4%BA%BA%E5%83%8F%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">Vision突出展示人像方案调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Framework"><span class="nav-number">1.2.</span> <span class="nav-text">Vision Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%8A%9F%E8%83%BD%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">3. 功能详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">4. 案例分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%8A%80%E6%9C%AF%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">5. 技术优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%99%90%E5%88%B6%E4%B8%8E%E6%8C%91%E6%88%98"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">6. 限制与挑战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">7. 总结与建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">8. 参考文献</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.2.2.7.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
