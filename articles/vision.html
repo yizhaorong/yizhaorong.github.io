@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Vision突出展示人像方案调研在帖子列表图片裁剪的时候保证人脸的居中 iOS 的 vision framework 可以提供类似的能力 引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人">
+  <meta name="description" content="Vision突出展示人像方案调研引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 在帖子列表图片裁剪的时候保证人脸的居中，利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人物重点。   Vision Framework概述Vision F">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Vision方案调研">
 <meta property="og:url" content="http://example.com/articles/vision.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Vision突出展示人像方案调研在帖子列表图片裁剪的时候保证人脸的居中 iOS 的 vision framework 可以提供类似的能力 引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人">
+<meta property="og:description" content="Vision突出展示人像方案调研引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 在帖子列表图片裁剪的时候保证人脸的居中，利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人物重点。   Vision Framework概述Vision F">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yizhaorong.github.io/images/image-20241126172930223.png">
+<meta property="og:image" content="https://yizhaorong.github.io/images/image-20241126172930223.png">
 <meta property="article:published_time" content="2024-11-26T07:41:44.000Z">
-<meta property="article:modified_time" content="2024-11-28T07:43:51.911Z">
+<meta property="article:modified_time" content="2024-11-28T08:23:58.152Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yizhaorong.github.io/images/image-20241126172930223.png">
+<meta name="twitter:image" content="https://yizhaorong.github.io/images/image-20241126172930223.png">
 
 <link rel="canonical" href="http://example.com/articles/vision">
 
@@ -171,41 +171,24 @@
       
       
       <div class="post-body">
-          <h1 id="Vision突出展示人像方案调研"><a href="#Vision突出展示人像方案调研" class="headerlink" title="Vision突出展示人像方案调研"></a>Vision突出展示人像方案调研</h1><p>在帖子列表图片裁剪的时候保证人脸的居中</p>
-<p>iOS 的 vision framework 可以提供类似的能力</p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><ul>
+          <h1 id="Vision突出展示人像方案调研"><a href="#Vision突出展示人像方案调研" class="headerlink" title="Vision突出展示人像方案调研"></a>Vision突出展示人像方案调研</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><ul>
 <li><p><strong>背景介绍</strong></p>
 <p>当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。</p>
 </li>
 <li><p><strong>目标</strong></p>
-<p>利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人物重点。</p>
+<p>在帖子列表图片裁剪的时候保证人脸的居中，利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人物重点。</p>
 </li>
 </ul>
 <h2 id="Vision-Framework"><a href="#Vision-Framework" class="headerlink" title="Vision Framework"></a>Vision Framework</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Vision Framework是苹果在iOS 11中首次推出用于图像分析和计算机视觉任务的框架。它为开发者提供了在应用中轻松实现各种图像处理功能，如人脸检测、文本识别、物体识别、图像分类、条码扫描等。</p>
-<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><p><img src="http://yizhaorong.github.io/images/image-20241126172930223.png" alt="image-20241126172930223"></p>
-<h4 id="3-功能详解"><a href="#3-功能详解" class="headerlink" title="3. 功能详解"></a>3. 功能详解</h4><ul>
-<li><strong>3.1 图像处理和分析</strong><ul>
-<li>3.1.1 物体检测<ul>
-<li>描述物体检测的能力和应用场景。</li>
-</ul>
+<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><p><img src="https://yizhaorong.github.io/images/image-20241126172930223.png" alt="image-20241126172930223"></p>
+<h4 id="3-关联功能"><a href="#3-关联功能" class="headerlink" title="3. 关联功能"></a>3. 关联功能</h4><ul>
+<li><p><strong>3.1 面部识别</strong></p>
+<p>提供高效且精确的面部检测功能，能够从给定的视觉素材中快速识别出人脸，并返回其在图像中的位置和轮廓信息。这一技术通过利用深度学习算法进行训练，具备极高的识别准确率，甚至在复杂背景或多种光照条件下亦能稳定工作。</p>
+<p>Vision Framework面部检测的主要功能包括：检测图片或实时视频流中的人脸，对检测到的人脸进行标记以及提供与面部相关的特征信息，例如眼睛、鼻子、嘴巴的位置。开发者可以借助这些功能进一步实现面部表情分析、人脸识别或其他基于视觉的信息处理任务。</p>
+<p>此外，Vision Framework的面部检测技术与Apple的硬件生态系统完美集成，能够充分利用设备的GPU加速处理运算，以提高实时检测的性能和效率，并且在隐私保护方面，框架在本地设备上执行所有的人脸处理任务，从而确保用户的个人数据不会被上传或泄露。通过这些特性，苹果为开发者提供了在iOS、macOS等平台上创建创新且多功能应用的基础。</p>
 </li>
-<li>3.1.2 文字识别（OCR）<ul>
-<li>文字检测与识别功能的详细说明。</li>
-</ul>
-</li>
-<li>3.1.3 面部检测和识别<ul>
-<li>面部检测技术的功能和限制。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>3.2 动作识别</strong><ul>
-<li>描述动作识别及其应用，特别是在视频中的使用。</li>
-</ul>
-</li>
-<li><strong>3.3 图像注册和跟踪</strong><ul>
-<li>介绍图像注册功能，视觉跟踪的技术细节及使用场景。</li>
-</ul>
+<li><p><strong>3.2 物体识别</strong></p>
+<p>描述动作识别及其应用，特别是在视频中的使用。</p>
 </li>
 </ul>
 <h4 id="4-案例分析"><a href="#4-案例分析" class="headerlink" title="4. 案例分析"></a>4. 案例分析</h4><ul>
@@ -320,7 +303,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision%E7%AA%81%E5%87%BA%E5%B1%95%E7%A4%BA%E4%BA%BA%E5%83%8F%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">Vision突出展示人像方案调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Framework"><span class="nav-number">1.2.</span> <span class="nav-text">Vision Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%8A%9F%E8%83%BD%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">3. 功能详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">4. 案例分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%8A%80%E6%9C%AF%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">5. 技术优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%99%90%E5%88%B6%E4%B8%8E%E6%8C%91%E6%88%98"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">6. 限制与挑战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">7. 总结与建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">8. 参考文献</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.2.2.7.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision%E7%AA%81%E5%87%BA%E5%B1%95%E7%A4%BA%E4%BA%BA%E5%83%8F%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">Vision突出展示人像方案调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Framework"><span class="nav-number">1.2.</span> <span class="nav-text">Vision Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%85%B3%E8%81%94%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">3. 关联功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">4. 案例分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%8A%80%E6%9C%AF%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">5. 技术优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%99%90%E5%88%B6%E4%B8%8E%E6%8C%91%E6%88%98"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">6. 限制与挑战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">7. 总结与建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">8. 参考文献</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.2.2.7.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
