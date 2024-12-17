@@ -28,10 +28,22 @@
 <meta property="og:description" content="Vision突出展示人像方案调研引言 背景介绍 当前找搭子中的图片都是进行中间等比缩放裁剪，无法突出图片重点。在人像照中用户通常更希望的是突出人物重点，以达成更好的体验效果。  目标 在帖子列表图片裁剪的时候保证人脸的居中，利用苹果提供的 Vision Framework 对图片进行人体检测，并裁剪出人体部份进行展示，突出图片中的人物重点。   Vision Framework概述Vision F">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/articles/images/WWDC19-222-cat.png">
-<meta property="og:image" content="http://example.com/rectangleDetection.png">
-<meta property="og:image" content="https://yizhaorong.github.io/images/image-20241126172930223.png">
+<meta property="og:image" content="http://example.com/articles/images/rectangleDetection.png">
+<meta property="og:image" content="http://example.com/articles/images/qrcode.png">
+<meta property="og:image" content="http://example.com/articles/images/objectTrack.png">
+<meta property="og:image" content="http://example.com/articles/images/textDetection.png">
+<meta property="og:image" content="http://example.com/articles/images/faceDetection.png">
+<meta property="og:image" content="http://example.com/articles/images/faceLandmarks.png">
+<meta property="og:image" content="http://example.com/articles/images/humanDetector.png">
+<meta property="og:image" content="http://example.com/articles/images/catAndDogDetectors.png">
+<meta property="og:image" content="http://example.com/articles/images/performance.png">
+<meta property="og:image" content="http://example.com/articles/images/vision_flow.png">
+<meta property="og:image" content="http://example.com/articles/images/structGraph.png">
+<meta property="og:image" content="http://example.com/articles/images/image-20241217173754964.png">
+<meta property="og:image" content="http://example.com/articles/images/image-20241217173211850.png">
+<meta property="og:image" content="http://example.com/articles/images/image-20241217173506368.png">
 <meta property="article:published_time" content="2024-11-26T07:41:44.000Z">
-<meta property="article:modified_time" content="2024-12-17T07:17:30.656Z">
+<meta property="article:modified_time" content="2024-12-17T09:51:34.038Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/articles/images/WWDC19-222-cat.png">
@@ -182,15 +194,49 @@
 </li>
 </ul>
 <h2 id="Vision-Framework"><a href="#Vision-Framework" class="headerlink" title="Vision Framework"></a>Vision Framework</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Vision Framework是苹果在iOS 11中首次推出用于图像分析和计算机视觉任务的框架。它为开发者提供了在应用中轻松实现各种图像处理功能，如人脸检测、文本识别、物体识别、图像分类、条码扫描等。</p>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h3 id="图片相似度对比"><a href="#图片相似度对比" class="headerlink" title="图片相似度对比"></a>图片相似度对比</h3><p>每张图片都有一个 FeaturePrint，它是一个类似于词向量，相似度是一个数字：数字越小，图像越相似。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h3 id="图片相似度对比"><a href="#图片相似度对比" class="headerlink" title="图片相似度对比"></a>图片相似度对比</h3><p>每张图片都有一个 FeaturePrint。它类似于词向量，数值越小，图像越相似。</p>
 <img src="./images/WWDC19-222-cat.png"/>
 
-<h3 id="矩形检测"><a href="#矩形检测" class="headerlink" title="矩形检测"></a>矩形检测</h3><p><img src="/rectangleDetection.png" alt="img"></p>
-<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><p><img src="https://yizhaorong.github.io/images/image-20241126172930223.png" alt="image-20241126172930223"></p>
-<h3 id="关联功能"><a href="#关联功能" class="headerlink" title="关联功能"></a>关联功能</h3><h4 id="面部识别"><a href="#面部识别" class="headerlink" title="面部识别"></a>面部识别</h4><p>苹果提供高效且精确的面部检测功能，能够从给定的视觉素材中快速识别出人脸，并返回其在图像中的位置和轮廓信息。这一技术通过利用深度学习算法进行训练，具备极高的识别准确率，甚至在复杂背景或多种光照条件下亦能稳定工作。</p>
-<p>Vision Framework面部检测的主要功能包括：检测图片或实时视频流中的人脸，对检测到的人脸进行标记以及提供与面部相关的特征信息，例如眼睛、鼻子、嘴巴的位置。开发者可以借助这些功能进一步实现面部表情分析、人脸识别或其他基于视觉的信息处理任务。</p>
-<h4 id="物体识别"><a href="#物体识别" class="headerlink" title="物体识别"></a>物体识别</h4><p>能够识别图像或视频帧中的特定物体，并返回这些物体的位置信息（如边界框）。这可以用于人脸检测、条形码扫描、车辆检测等场景。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2>
+<h3 id="矩形检测"><a href="#矩形检测" class="headerlink" title="矩形检测"></a>矩形检测</h3><img src="./images/rectangleDetection.png"/>
+
+<h3 id="二维码-条行码检测"><a href="#二维码-条行码检测" class="headerlink" title="二维码&amp;条行码检测"></a>二维码&amp;条行码检测</h3><img src="./images/qrcode.png" />
+
+<h3 id="对象跟踪"><a href="#对象跟踪" class="headerlink" title="对象跟踪"></a>对象跟踪</h3><img src="./images/objectTrack.png" />
+
+<h3 id="文字识别"><a href="#文字识别" class="headerlink" title="文字识别"></a>文字识别</h3><img src="./images/textDetection.png" />
+
+<h3 id="人脸检测"><a href="#人脸检测" class="headerlink" title="人脸检测"></a>人脸检测</h3><p>支持检测笑脸、侧脸、局部遮挡脸部、戴眼镜和帽子等场景，可以标记出人脸的矩形区域</p>
+<img src="./images/faceDetection.png" />
+
+<h3 id="人脸特征点"><a href="#人脸特征点" class="headerlink" title="人脸特征点"></a>人脸特征点</h3><p>可以标记出人脸和眼睛、眉毛、鼻子、嘴、牙齿的轮廓，以及人脸的中轴线</p>
+<img src="./images/faceLandmarks.png" />
+
+<h3 id="物体识别"><a href="#物体识别" class="headerlink" title="物体识别"></a>物体识别</h3><h4 id="人体"><a href="#人体" class="headerlink" title="人体"></a>人体</h4><img src="./images/humanDetector.png"/>
+
+<h4 id="猫和狗"><a href="#猫和狗" class="headerlink" title="猫和狗"></a>猫和狗</h4><img src="./images/catAndDogDetectors.png" />
+
+<h2 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h2><p>Vision 与 iOS 上其他几种带人脸检测功能框架的对比：</p>
+<img src="./images/performance.png" />
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>Vision使用中的角色有： Request，RequestHandler，results和results中的Observation数组。</p>
+<p>Request类型： 有很多种，比如图中列出的 人脸识别、特征识别、文本识别、二维码识别等。</p>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><img src="./images/vision_flow.png" />
+
+<h3 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h3><img src="./images/structGraph.png" />
+
+<h3 id="图片重要区域使用示例"><a href="#图片重要区域使用示例" class="headerlink" title="图片重要区域使用示例"></a>图片重要区域使用示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// 创建处理requestHandler</span><br><span class="line">VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCGImage:image.CGImage options:@&#123;&#125;];</span><br><span class="line">// 创建重点区域识别请求</span><br><span class="line">VNGenerateAttentionBasedSaliencyImageRequest *request = [[VNGenerateAttentionBasedSaliencyImageRequest alloc] initWithCompletionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) &#123;</span><br><span class="line">    // 处理识别回调</span><br><span class="line">    if (error) &#123;</span><br><span class="line">        NSLog(@&quot;Error detecting rectangles: %@&quot;, error);</span><br><span class="line">        completion(nil);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 进行图片位置转换与合并</span><br><span class="line">    CGRect boundingBox = CGRectZero;</span><br><span class="line">    for (VNSaliencyImageObservation *observation in request.results) &#123;</span><br><span class="line">        if (![observation isKindOfClass:[VNSaliencyImageObservation class]]) continue;</span><br><span class="line">        for (VNRectangleObservation *obs in observation.salientObjects) &#123;</span><br><span class="line">            boundingBox = CGRectUnion(boundingBox, obs.boundingBox);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    if (CGRectEqualToRect(CGRectZero, boundingBox)) &#123;</span><br><span class="line">        completion(nil);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // 裁剪图片</span><br><span class="line">    CGSize imageSize = CGSizeMake(CGImageGetWidth(image.CGImage), CGImageGetHeight(image.CGImage));</span><br><span class="line">    CGRect bodyBoundingBox = VNImageRectForNormalizedRect(boundingBox, imageSize.width, imageSize.height);</span><br><span class="line">    CGImageRef croppedImageRef = CGImageCreateWithImageInRect(image.CGImage, bodyBoundingBox);</span><br><span class="line">    UIImage *faceImage = [UIImage imageWithCGImage:croppedImageRef];</span><br><span class="line">    CGImageRelease(croppedImageRef);</span><br><span class="line">    completion(faceImage);</span><br><span class="line">&#125;];</span><br><span class="line">NSError *error = nil;</span><br><span class="line">// 发送识别请求</span><br><span class="line">[handler performRequests:@[request] error:&amp;error];</span><br><span class="line">// 处理错误</span><br><span class="line">if (error) &#123;</span><br><span class="line">    NSLog(@&quot;Error performing request: %@&quot;, error);</span><br><span class="line">    completion(nil);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><h4 id="图片重点"><a href="#图片重点" class="headerlink" title="图片重点"></a>图片重点</h4><img src="./images/image-20241217173754964.png" />
+
+<h4 id="人脸"><a href="#人脸" class="headerlink" title="人脸"></a>人脸</h4><img src="./images/image-20241217173211850.png" />
+
+<h4 id="人体-1"><a href="#人体-1" class="headerlink" title="人体"></a>人体</h4><img src="./images/image-20241217173506368.png" />
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>苹果Vision Framework提供了多种识别器，图片重点区域识别应用场景不限局限于人，如果要突出图片重点，可以采用这个识别器。</p>
+<p>人体检测，可以识别出人体，满足突出人物显示需求。</p>
+<p>人脸识别，识别区域为人脸，裁剪后会把脸部重点突出，效果不太好。</p>
+<p>性能方面，由于需要在图片下载完成之后进行图片的实时识别和裁剪，会存在一定的性能损耗。</p>
+
       </div>
       
       
@@ -251,7 +297,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision%E7%AA%81%E5%87%BA%E5%B1%95%E7%A4%BA%E4%BA%BA%E5%83%8F%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">Vision突出展示人像方案调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Framework"><span class="nav-number">1.2.</span> <span class="nav-text">Vision Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%AF%B9%E6%AF%94"><span class="nav-number">1.3.1.</span> <span class="nav-text">图片相似度对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E5%BD%A2%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">矩形检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.3.</span> <span class="nav-text">主要功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.4.</span> <span class="nav-text">关联功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E9%83%A8%E8%AF%86%E5%88%AB"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">面部识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%A9%E4%BD%93%E8%AF%86%E5%88%AB"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">物体识别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision%E7%AA%81%E5%87%BA%E5%B1%95%E7%A4%BA%E4%BA%BA%E5%83%8F%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">Vision突出展示人像方案调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Framework"><span class="nav-number">1.2.</span> <span class="nav-text">Vision Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%AF%B9%E6%AF%94"><span class="nav-number">1.3.1.</span> <span class="nav-text">图片相似度对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E5%BD%A2%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">矩形检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E7%A0%81-%E6%9D%A1%E8%A1%8C%E7%A0%81%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.3.</span> <span class="nav-text">二维码&amp;条行码检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%B7%9F%E8%B8%AA"><span class="nav-number">1.3.4.</span> <span class="nav-text">对象跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">1.3.5.</span> <span class="nav-text">文字识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.6.</span> <span class="nav-text">人脸检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E7%89%B9%E5%BE%81%E7%82%B9"><span class="nav-number">1.3.7.</span> <span class="nav-text">人脸特征点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BD%93%E8%AF%86%E5%88%AB"><span class="nav-number">1.3.8.</span> <span class="nav-text">物体识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E4%BD%93"><span class="nav-number">1.3.8.1.</span> <span class="nav-text">人体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8C%AB%E5%92%8C%E7%8B%97"><span class="nav-number">1.3.8.2.</span> <span class="nav-text">猫和狗</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94"><span class="nav-number">1.4.</span> <span class="nav-text">性能对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">1.5.1.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">1.5.2.</span> <span class="nav-text">结构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E9%87%8D%E8%A6%81%E5%8C%BA%E5%9F%9F%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">图片重要区域使用示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">1.5.4.</span> <span class="nav-text">效果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E9%87%8D%E7%82%B9"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">图片重点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">人脸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E4%BD%93-1"><span class="nav-number">1.5.4.3.</span> <span class="nav-text">人体</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
